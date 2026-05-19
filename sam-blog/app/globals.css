@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+:root,
+.invert-color-mode {
+    --white: rgba(255, 255, 255, 1);
+    --black: rgba(0, 0, 0, 1);
+    --gray-200: #e1e1e1;
+    --gray-300: #c1c1c1;
+    --gray-400: #a1a1a1;
+    --gray-600: #616161;
+    --gray-700: #414141;
+    --gray-850: #1a1a1a;
+    --gray-900: #111111;
+    --red-400: #ff7082;
+    --green-500: #00ca51;
+    --green-950: #001a0a;
+    --blue-400: #46b1ff;
+    --purple-400: #c288f9;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root,
+    .light .invert-color-mode {
+        --text-contrast: var(--white);
+        --text-primary: var(--gray-200);
+        --text-secondary: var(--gray-400);
+        --text-decoration: var(--gray-700);
+        --text-disabled: var(--gray-600);
+        --text-red: var(--red-400);
+        --text-green: var(--green-500);
+        --text-blue: var(--blue-400);
+        --text-purple: var(--purple-400);
+        --text-postgres: #58a6e4;
+        --bg-primary: var(--gray-900);
+        --bg-secondary: var(--gray-850);
+        --bg-focus: 65 65 65;
+        --bg-inverted: var(--white);
+        --bg-green: var(--green-500);
+        --bg-green-light: var(--green-950);
+        --border-primary: var(--gray-300);
+    }
+}
+
+html {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+body {
+    font-family:
+        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+        "Liberation Mono", monospace;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-wrap: pretty;
+    margin: 0;
+    line-height: inherit;
+}
