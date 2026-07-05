@@ -20,21 +20,47 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <title>My App</title>
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="flex flex-row justify-between items-center p-4">
-          <div className="left-links">
-            <Link href="/"></Link>
-            <Link href="/">Blogs</Link>
+    <body className="flex min-h-screen bg-[#0a0a0a] text-white">
+
+      {}
+      <aside className="w-64 border-r border-zinc-800 p-6 flex flex-col gap-4 text-sm text-zinc-400 font-mono">
+      <Link href="/blog" className ="hover:text-white transition-colors "> &gt; samblog</Link>
+      <Link href="/journal" className ="hover:text-white transition-colors "> &gt; journal</Link>
+      <Link href="/notes" className="hover:text-white transiton-colors"> &gt; notes</Link>
+      <div className="flex-1">
+        {/* TODO: Login / Auth area */}
+      </div>
+      <div className="border-t border-zinc-800 pt-4">
+        <Link href="/login" className="hover:text-white transition-colors">
+          &gt; login
+        </Link>
+      </div>
+      </aside>
+          <main className="flex-1">
+        
+        {/* TOP NAVBAR */}
+        <nav className="flex justify-between items-center px-10 py-8">
+          
+          <div className="flex items-center gap-3">
+            <img src="https://github.com/samarthsrao.png" alt="avatar" className="w-8 h-8 rounded-full" />
+            <span className="font-bold text-white tracking-wide">samblog</span>
           </div>
-          <div className="right-links">
-            <Link href="/admin">Admin</Link>
+
+          <div className="flex items-center gap-6 text-sm text-zinc-400 font-mono">
+            <Link href="/art" className="hover:text-white transition-colors">&gt; Art</Link>
+            <Link href="/blog" className="hover:text-white transition-colors">&gt; Blog</Link>
+            <Link href="/journal" className="hover:text-white transition-colors">&gt; Journal</Link>
+            <Link href="/notes" className="hover:text-white transition-colors">&gt; Notes</Link>
+            <Link href="/about" className="hover:text-white transition-colors">&gt; About</Link>
           </div>
-        </div>
-        <main className="max-w-3xl mx-auto px-4 sm:px-6 py-16">{children}</main>
-      </body>
-    </html>
+
+        </nav>
+
+        {/* PAGE CONTENT */}
+        {children}
+        
+      </main>
+    </body>
+  </html>
   );
 }
