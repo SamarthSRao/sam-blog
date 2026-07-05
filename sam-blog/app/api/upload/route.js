@@ -1,37 +1,46 @@
 import { NextResponse } from "next/server";
-import { uploadImageToS3 } from "@/lib/s3";
+import { uploadIsolated } from "@/lib/s3";
 import { getCurrentSession } from "@/lib/session";
 
-export async function POST(request) {
-  try {
-    // 1. Security Check: Only allow admins to upload images
-    const session = await getCurrentSession();
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+export async function POST(request) 
+{
+    try{ 
+        const session = await getCurrentSession();
+        if(!session){
+            return NextResponse.json({
+                success:false,
+                message:"unauthorised"
+            })
+        }
+    
+        const  formData = await request.formData();
+        const file = formData.get("file");
+        if(!file)
+        {
+            return NextResponse.json({
+                success:false,
+                message:"no file selected"
+            })
+        }
 
-    // 2. Parse the multipart form data
-    const formData = await request.formData();
-    const file = formData.get("file");
+const fileName = file.name;
+const fileType = file.type;
 
-    if (!file) {
-      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
-    }
+const arrayBuffer = await file.arrayBuffer();
+const buffer = Buffer.from(arrayBuffer);
 
-    // 3. Convert the File object to a Buffer
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+const s3Key = `uploads/${session.user.email}/${file.name}`;
 
-    // 4. Generate a unique filename to prevent overwrites
-    const uniqueFileName = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+await uploadIsolated(buffer, s3Key, file.type);
 
-    // 5. Upload to S3
-    const imageUrl = await uploadImageToS3(buffer, uniqueFileName, file.type);
+return NextResponse.json({
+    success:true,
+    message:"file uploaded successfully",
+    url: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${s3Key}`
+})
+}   
 
-    // 6. Return the URL so the Editor can insert it into the Markdown
-    return NextResponse.json({ url: imageUrl }, { status: 200 });
-  } catch (error) {
-    console.error("Upload Error:", error);
-    return NextResponse.json({ error: "Failed to upload image" }, { status: 500 });
-  }
-}
+    catch(error) {
+    
+   return NextResponse.json({ success: false, message: "Upload failed"}, {status: 500});
+}  }

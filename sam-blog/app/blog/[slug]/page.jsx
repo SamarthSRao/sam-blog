@@ -5,6 +5,9 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import { redirect } from "next/navigation";
 import { getCurrentSession, requireAdmin } from "../../../lib/session";
+import { Playfair_Display } from "next/font/google";
+
+const playfair = Playfair_Display({ subsets: ["latin"] });
 
 export default async function ReturnPosts({ params }) {
   const { slug } = await params;
@@ -42,50 +45,71 @@ export default async function ReturnPosts({ params }) {
     redirect("/");
   }
 
+  // Calculate approximate reading time (200 words per minute)
+  const wordCount = post.content.split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 200) || 1;
+
   return (
-    <article className="prose-invert animate-in fade-in duration-700">
+    <article className={`prose-invert animate-in fade-in duration-700 max-w-3xl mx-auto px-4 sm:px-6 py-12 ${playfair.className}`}>
       <Link
         href="/"
-        className="inline-flex items-center text-sm font-medium text-[var(--accent)] hover:underline mb-8"
+        className="inline-flex items-center text-sm font-sans font-medium text-[var(--text-secondary)] hover:text-[var(--text-contrast)] transition-colors mb-16"
       >
         ← Back to all posts
       </Link>
 
-      <header className="space-y-4 mb-10">
-        <div className="text-sm font-medium text-[var(--muted-foreground)]">
+      <header className="flex flex-col items-center text-center space-y-6 mb-16">
+        <div className="text-xs tracking-widest font-sans font-semibold text-[var(--text-secondary)] uppercase">
           {new Date(post.createdAt).toLocaleDateString("en-US", {
-            month: "long",
+            month: "short",
             day: "numeric",
             year: "numeric",
           })}
+          <span className="mx-2">·</span>
+          {readingTime} MIN READ
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[var(--text-contrast)] leading-tight max-w-4xl">
           {post.title}
         </h1>
       </header>
 
-      <section className="whitespace-pre-wrap leading-relaxed text-[var(--foreground)] opacity-90">
+      {/* Audio Player Placeholder */}
+      <div className="flex items-center justify-between border-y border-[var(--border-primary)] py-4 mb-16 font-sans">
+        <button className="flex items-center gap-3 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-contrast)] transition-colors">
+          <div className="w-8 h-8 rounded-full border border-[var(--text-secondary)] flex items-center justify-center">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          LISTEN
+        </button>
+        <div className="text-xs text-[var(--text-secondary)] tabular-nums">
+          0:00 / {readingTime}:00
+        </div>
+      </div>
+
+      <section className="blog-content whitespace-pre-wrap leading-relaxed text-[var(--text-primary)] text-lg sm:text-xl opacity-90">
         <Markdown>{post.content}</Markdown>
       </section>
 
-      <div className="mt-16 pt-8 border-t border-[var(--border)] space-y-4">
-        <p className="text-sm text-[var(--muted-foreground)]">
+      <div className="mt-24 pt-8 border-t border-[var(--border-primary)] space-y-4 font-sans">
+        <p className="text-sm text-[var(--text-secondary)] text-center">
           Thanks for reading! If you enjoyed this post, feel free to share it.
         </p>
 
         {/* Admin controls - only render if user is admin */}
         {isAdmin && (
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center mt-8">
             <div className="flex gap-4">
               <Link
                 href="/admin"
-                className="inline-flex items-center text-sm font-medium text-[var(--accent)] hover:underline"
+                className="inline-flex items-center text-sm font-medium text-[var(--text-blue)] hover:underline"
               >
                 ← Back to admin
               </Link>
               <Link
                 href={`/admin/edit/${slug}`}
-                className="inline-flex items-center text-sm font-medium text-[var(--accent)] hover:underline"
+                className="inline-flex items-center text-sm font-medium text-[var(--text-blue)] hover:underline"
               >
                 ✎ Edit post
               </Link>
@@ -95,7 +119,7 @@ export default async function ReturnPosts({ params }) {
               <input type="hidden" name="itemId" value={post.id} />
               <button
                 type="submit"
-                className="rounded-md border border-red-500/40 px-4 py-2 text-sm text-red-300 hover:bg-red-500/10 transition-colors"
+                className="rounded-md border border-[var(--text-red)] px-4 py-2 text-sm text-[var(--text-red)] hover:bg-[var(--text-red)] hover:bg-opacity-10 transition-colors"
               >
                 Delete Post
               </button>
