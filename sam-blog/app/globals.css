@@ -58,14 +58,3 @@ body {
     line-height: inherit;
 }
 
-/* Blog Drop Cap */
-.blog-content p:first-of-type::first-letter {
-    float: left;
-    font-size: 5.5rem;
-    line-height: 0.8;
-    padding-right: 0.15em;
-    padding-top: 0.1em;
-    color: var(--text-contrast);
-    font-family: inherit;
-    font-weight: 700;
-}

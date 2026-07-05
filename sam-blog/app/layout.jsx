@@ -25,8 +25,8 @@ export default function RootLayout({ children }) {
       {}
       <aside className="w-64 border-r border-zinc-800 p-6 flex flex-col gap-4 text-sm text-zinc-400 font-mono">
       <Link href="/blog" className ="hover:text-white transition-colors "> &gt; samblog</Link>
-      <Link href="/journal" className ="hover:text-white transition-colors "> &gt; journal</Link>
-      <Link href="/notes" className="hover:text-white transiton-colors"> &gt; notes</Link>
+      {/* <Link href="/journal" className ="hover:text-white transition-colors "> &gt; journal</Link> */}
+      {/* <Link href="/notes" className="hover:text-white transiton-colors"> &gt; notes</Link> */}
       <div className="flex-1">
         {/* TODO: Login / Auth area */}
       </div>
@@ -47,11 +47,11 @@ export default function RootLayout({ children }) {
           </div>
 
           <div className="flex items-center gap-6 text-sm text-zinc-400 font-mono">
-            <Link href="/art" className="hover:text-white transition-colors">&gt; Art</Link>
+            {/* <Link href="/art" className="hover:text-white transition-colors">&gt; Art</Link> */}
             <Link href="/blog" className="hover:text-white transition-colors">&gt; Blog</Link>
-            <Link href="/journal" className="hover:text-white transition-colors">&gt; Journal</Link>
-            <Link href="/notes" className="hover:text-white transition-colors">&gt; Notes</Link>
-            <Link href="/about" className="hover:text-white transition-colors">&gt; About</Link>
+            {/* <Link href="/journal" className="hover:text-white transition-colors">&gt; Journal</Link> */}
+            {/* <Link href="/notes" className="hover:text-white transition-colors">&gt; Notes</Link> */}
+            {/* <Link href="/about" className="hover:text-white transition-colors">&gt; About</Link> */}
           </div>
 
         </nav>
