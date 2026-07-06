@@ -31,7 +31,7 @@ export default async function BlogIndex() {
             {yearPosts.map((post) => (
 
               <li key={post.id} className="hover:text-white transition-colors underline-offset-4 hover:underline">
-                <time className={ `${sourceCode.className} text-zinc-500 w-16 shrink-0`}>
+                <time className={`${sourceCode.className} text-zinc-500 w-16 shrink-0 inline-block mr-4`}>
                   {new Date(post.createdAt).toLocaleDateString("en-us", { month: "2-digit", day:"2-digit"})}
                 </time>
                 <Link href={`/blog/${post.slug}`}>
