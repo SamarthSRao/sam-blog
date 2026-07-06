@@ -41,6 +41,12 @@
     }
 }
 
+/* Ensure bold text correctly renders in markdown prose */
+.prose strong {
+    color: white;
+    font-weight: 800;
+}
+
 html {
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -57,4 +63,3 @@ body {
     margin: 0;
     line-height: inherit;
 }
-
