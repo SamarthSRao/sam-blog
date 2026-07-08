@@ -20,33 +20,33 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-    <body className="flex min-h-screen bg-[#0a0a0a] text-white">
+    <body className="flex flex-col md:flex-row min-h-screen bg-[#0a0a0a] text-white">
 
       {}
-      <aside className="w-64 border-r border-zinc-800 p-6 flex flex-col gap-4 text-sm text-zinc-400 font-mono">
+      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-zinc-800 p-4 md:p-6 flex flex-row md:flex-col justify-between md:justify-start gap-4 text-sm text-zinc-400 font-mono">
       <Link href="/blog" className ="hover:text-white transition-colors "> &gt; samblog</Link>
       {/* <Link href="/journal" className ="hover:text-white transition-colors "> &gt; journal</Link> */}
       {/* <Link href="/notes" className="hover:text-white transiton-colors"> &gt; notes</Link> */}
-      <div className="flex-1">
+      <div className="hidden md:block flex-1">
         {/* TODO: Login / Auth area */}
       </div>
-      <div className="border-t border-zinc-800 pt-4">
+      <div className="md:border-t border-zinc-800 md:pt-4">
         <Link href="/login" className="hover:text-white transition-colors">
           &gt; login
         </Link>
       </div>
       </aside>
-          <main className="flex-1">
+          <main className="flex-1 w-full max-w-full">
         
         {/* TOP NAVBAR */}
-        <nav className="flex justify-between items-center px-10 py-8">
+        <nav className="flex justify-between items-center px-4 md:px-10 py-6 md:py-8 overflow-x-auto">
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <img src="https://github.com/samarthsrao.png" alt="avatar" className="w-8 h-8 rounded-full" />
             <span className="font-bold text-white tracking-wide">samblog</span>
           </div>
 
-          <div className="flex items-center gap-6 text-sm text-zinc-400 font-mono">
+          <div className="flex items-center gap-4 md:gap-6 text-sm text-zinc-400 font-mono ml-4 shrink-0">
             {/* <Link href="/art" className="hover:text-white transition-colors">&gt; Art</Link> */}
             <Link href="/blog" className="hover:text-white transition-colors">&gt; Blog</Link>
             {/* <Link href="/journal" className="hover:text-white transition-colors">&gt; Journal</Link> */}

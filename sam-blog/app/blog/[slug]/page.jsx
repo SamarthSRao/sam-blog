@@ -51,9 +51,9 @@ export default async function ReturnPosts({ params }) {
 
   return (
     // We use the default sans-serif font for the main wrapper
-    <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 p-8 font-sans">
+    <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 p-4 md:p-8 font-sans">
       
-      <article className="max-w-2xl mx-auto mt-8">
+      <article className="max-w-2xl mx-auto md:mt-8">
         
         {/* 1. THE HEADER (Title & Date) */}
         <header className="mb-12 space-y-4">
